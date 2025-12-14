@@ -153,14 +153,25 @@ async function fetchAndParse(url, format = "json", cookies = null) {
 
     // 生成 markdown 格式
     if (extractedData.html) {
-      result.markdown = turndownService.turndown(extractedData.html);
+      try {
+        result.markdown = turndownService.turndown(extractedData.html);
 
-      // 小红书特殊处理：清理标签链接
-      if (isXiaohongshu(url) && extractedData.tags?.length > 0) {
-        result.markdown = result.markdown
-          .replace(/\[#[^\]]+\]\([^)]+\)/g, "")
-          .trim();
-        result.markdown += "\n\n" + extractedData.tags.join(" ");
+        // 小红书特殊处理：清理标签链接
+        if (isXiaohongshu(url) && extractedData.tags?.length > 0) {
+          result.markdown = result.markdown
+            .replace(/\[#[^\]]+\]\([^)]+\)/g, "")
+            .trim();
+          result.markdown += "\n\n" + extractedData.tags.join(" ");
+        }
+        
+        // 检查markdown是否为空或太短，如果是则使用content作为备用
+        if (!result.markdown || result.markdown.length < 100) {
+          result.markdown = extractedData.content || "";
+        }
+      } catch (error) {
+        console.log("Markdown转换失败，使用纯文本内容:", error.message);
+        // 转换失败时使用content作为备用
+        result.markdown = extractedData.content || "";
       }
     } else if (extractedData.content) {
       // 如果没有html但有content，直接使用content作为markdown
