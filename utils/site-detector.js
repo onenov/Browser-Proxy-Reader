@@ -44,6 +44,14 @@ export function isGithub(url) {
   return url.includes("github.com") && !url.includes("gist.github.com");
 }
 
+export function isFeishu(url) {
+  return (
+    url.includes("feishu.cn") ||
+    url.includes("larksuite.com") ||
+    url.includes("feishu-pre.cn")
+  );
+}
+
 // 获取网站类型
 export function getSiteType(url) {
   if (isWechatArticle(url)) return "wechat";
@@ -57,6 +65,7 @@ export function getSiteType(url) {
   if (isGithub(url)) return "github";
   if (isBilibiliArticle(url)) return "bilibili";
   if (isZhihuArticle(url)) return "zhihu";
+  if (isFeishu(url)) return "feishu";
   return "general";
 }
 

@@ -1,0 +1,8 @@
+# PUPPETEER_EXECUTABLE_PATH=/snap/chromium/current/usr/lib/chromium-browser/chrome
+# PUPPETEER_HEADLESS=true
+PORT=3000
+ARK_API_URL=https://ark.cn-beijing.volces.com/api/v3/chat/completions
+ARK_MODEL=doubao-seed-2-0-mini-260215
+ARK_API_KEY=xxx
+ARK_REASONING_EFFORT=minimal
+PM2_INSTANCES=4

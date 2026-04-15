@@ -7,7 +7,7 @@ let browser = null;
 // 初始化浏览器
 export async function initBrowser() {
   if (!browser) {
-    browser = await puppeteer.launch({
+    const launchOptions = {
       headless: "new",
       args: [
         "--no-sandbox",
@@ -19,7 +19,15 @@ export async function initBrowser() {
         "--disable-blink-features=AutomationControlled",
         "--disable-features=IsolateOrigins,site-per-process",
       ],
-    });
+    };
+
+    // 如果指定了Chrome可执行文件路径，使用它
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+      launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+      console.log("使用自定义Chrome路径:", process.env.PUPPETEER_EXECUTABLE_PATH);
+    }
+
+    browser = await puppeteer.launch(launchOptions);
     console.log("浏览器实例已启动");
   }
   return browser;

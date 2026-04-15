@@ -40,33 +40,13 @@ export async function extractWechatContent(page) {
     }
 
     // 提取正文内容
-    const contentEl = document.querySelector(
-      "#js_content, .rich_media_content"
-    );
+    const contentEl = document.querySelector("#js_content")
+      || document.querySelector(".rich_media_content");
     if (contentEl) {
-      // 克隆节点以便清理
+      // 仅返回正文容器本身，避免混入页面其他区域
       const clonedContent = contentEl.cloneNode(true);
-      
-      // 清理微信公众号复杂的样式和属性，保留基本结构
-      const allElements = clonedContent.querySelectorAll("*");
-      allElements.forEach((el) => {
-        // 移除所有style属性（保留基本HTML结构）
-        el.removeAttribute("style");
-        // 移除微信特有的属性
-        el.removeAttribute("data-src");
-        el.removeAttribute("data-ratio");
-        el.removeAttribute("data-w");
-        el.removeAttribute("data-s");
-        el.removeAttribute("data-type");
-        el.removeAttribute("data-index");
-        el.removeAttribute("data-original-style");
-        // 移除class（简化结构）
-        if (!["img", "a", "code", "pre"].includes(el.tagName.toLowerCase())) {
-          el.removeAttribute("class");
-        }
-      });
-      
-      data.html = clonedContent.innerHTML;
+
+      data.html = clonedContent.outerHTML;
       data.content = contentEl.innerText.trim();
     }
 
