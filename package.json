@@ -1,5 +1,5 @@
 {
-  "name": "browser-proxy-reader",
+  "name": "Browser-Reader",
   "version": "1.0.0",
   "description": "基于浏览器的内容抓取代理，支持微信公众号等动态内容",
   "main": "server.js",
@@ -8,10 +8,10 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "pm2:start": "pm2 start ecosystem.config.cjs --env production",
-    "pm2:restart": "pm2 restart browser-proxy-reader --update-env",
-    "pm2:stop": "pm2 stop browser-proxy-reader",
-    "pm2:delete": "pm2 delete browser-proxy-reader",
-    "pm2:logs": "pm2 logs browser-proxy-reader"
+    "pm2:restart": "pm2 restart Browser-Reader --update-env",
+    "pm2:stop": "pm2 stop Browser-Reader",
+    "pm2:delete": "pm2 delete Browser-Reader",
+    "pm2:logs": "pm2 logs Browser-Reader"
   },
   "keywords": [
     "browser",

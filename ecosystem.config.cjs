@@ -5,16 +5,16 @@ const appRoot = __dirname;
 const envFile = path.join(appRoot, ".env");
 const envConfig = dotenv.config({ path: envFile });
 const parsedEnv = envConfig.parsed || {};
-const instanceCount = parsedEnv.PM2_INSTANCES || process.env.PM2_INSTANCES || 1;
+const instanceCount = parsedEnv.PM2_INSTANCES || process.env.PM2_INSTANCES || "max";
 
 module.exports = {
   apps: [
     {
-      name: "browser-proxy-reader",
+      name: "Browser-Reader",
       script: path.join(appRoot, "server.js"),
       cwd: appRoot,
-      instances: Number(instanceCount) > 0 ? Number(instanceCount) : 1,
-      exec_mode: "fork",
+      instances: instanceCount,
+      exec_mode: "cluster",
       interpreter: "node",
       autorestart: true,
       watch: false,

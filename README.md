@@ -351,8 +351,8 @@ pnpm pm2:logs
 
 ```bash
 pm2 start ecosystem.config.cjs --env production
-pm2 restart browser-proxy-reader --update-env
-pm2 logs browser-proxy-reader
+pm2 restart Browser-Reader --update-env
+pm2 logs Browser-Reader
 ```
 
 ### 多实例配置
